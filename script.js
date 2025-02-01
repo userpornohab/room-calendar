@@ -261,8 +261,6 @@ function updateSelectedDaysInfo() {
         
         if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return 'ночей';
         if (lastDigit ===3 ) return 'ночи';
-        if (lastDigit ===1 ) return 'ночь. К сожалению, текущие даты не соответствуют нашему минимальному сроку бронирования (3 ночи)';
-        if (lastDigit <= 2 ) return 'ночи. К сожалению, текущие даты не соответствуют нашему минимальному сроку бронирования (3 ночи)';
         return 'ночей';
     }
 
@@ -270,6 +268,11 @@ function updateSelectedDaysInfo() {
         const diffTime = Math.abs(endDate - startDate);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         infoElement.textContent = `Выбрано ${diffDays} ${getNightsDeclension(diffDays)}`;
+
+        if (diffDays <= 2 ) {
+            infoElement.textContent = 'К сожалению, текущие даты не соответствуют нашему минимальному сроку бронирования (3 ночи)';
+        }
+
     } else if (startDate) {
         infoElement.textContent = 'Выберите дату окончания';
     } else {
